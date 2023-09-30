@@ -29,7 +29,7 @@ public class AudioManager : MonoBehaviour
                 currentSound.clip = sources[1].clip;
                 break;
         }
-        currentSound.pitch = Random.Range(0.0f, 1.0f);
+        currentSound.pitch = Random.Range(0.5f, 1.0f);
         currentSound.volume = 0.5f;
         currentSound.PlayOneShot(currentSound.clip);
     }
