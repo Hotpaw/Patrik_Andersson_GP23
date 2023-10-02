@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
 
 	Transform target; //Our movement target
 	Rigidbody2D rb2D; //ref to our rigidbody component
+	public int health;
 
 	// Start is called before the first frame update
 	void Start()
@@ -31,6 +32,11 @@ public class Enemy : MonoBehaviour
 		//set velocity in the direction of the player
 		rb2D.velocity = direction * speed;
         transform.right = target.position - transform.position;
+
+		if(health == 0)
+		{
+			Death();
+		}
     }
 
 	//This function is called by Unity on collision.
@@ -45,19 +51,22 @@ public class Enemy : MonoBehaviour
 			float y = Random.Range(-10, 10);
 
 			//Spawn 2 new enemies.
-			
+
 			//Call the function Death() after a 0.01f delay
 			//we needed this delay because runnint instantiate and destroy
 			//on the same frame caused issues.
 			//this is quite a bad solution for this.
-			Invoke("Death", 0.01f);
+			
 
 			//Destroy the laser
 			Destroy(other.gameObject);
 		}
 	}
-
-	void Death()
+    public void TakeDamage()
+    {
+		health--;
+    }
+    void Death()
 	{
 		ScoreManager sm = FindAnyObjectByType<ScoreManager>();
 		sm.IncreaseScore(1);

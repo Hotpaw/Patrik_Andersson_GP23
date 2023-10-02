@@ -30,8 +30,11 @@ public class Laser : MonoBehaviour
 		audioManager.PlaySound("Explosion");
         //Create a new explosion and save that explosion in a variable.
         GameObject newExplosion = Instantiate(explosion, transform.position, transform.rotation);
-        
-        
+
+		if (collision.gameObject.CompareTag("Enemy"))
+		{
+			collision.gameObject.GetComponent<Enemy>().TakeDamage();
+		}
         //Destroy the newly created explosion object after 1 second.
         Destroy(newExplosion, 1);
 	}
